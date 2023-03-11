@@ -6,7 +6,7 @@ import com.example.doesitfly.api.RequestUtil
 import com.example.doesitfly.model.FlyingSiteBean
 
 class ListFlyingSiteViewModel : ViewModel() {
-    val data: MutableLiveData<FlyingSiteBean> = MutableLiveData()
+    val data: MutableLiveData<List<FlyingSiteBean>> = MutableLiveData()
     var errorMessage = MutableLiveData("ERROR")
 
     /** load flying site data : FlyingSiteBean from API */
@@ -16,7 +16,7 @@ class ListFlyingSiteViewModel : ViewModel() {
         errorMessage.postValue(null)
 
         try {
-            data.postValue(RequestUtil.loadOneFlyingSite())
+            data.postValue(RequestUtil.loadFlyingSite())
 
         } catch (e : Exception) {
             e.printStackTrace()
