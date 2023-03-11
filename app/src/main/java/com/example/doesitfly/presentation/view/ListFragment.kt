@@ -1,4 +1,4 @@
-package com.example.doesitfly
+package com.example.doesitfly.presentation.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.doesitfly.adapter.ListCardAdapter
-import com.example.doesitfly.model.FlyingSiteBean
-import com.example.doesitfly.viewModel.ListFlyingSiteViewModel
+import com.example.doesitfly.R
+import com.example.doesitfly.presentation.view.adapter.ListCardAdapter
+import com.example.doesitfly.presentation.viewModel.ListFlyingSiteViewModel
 
 class ListFragment : Fragment() {
 
@@ -22,12 +21,16 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
-
         viewModel.loadData()
 
-        val listRecyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewList)
-        listRecyclerView.adapter = ListCardAdapter(viewModel.data.value ?: emptyList())
+        viewModel.data.observe(viewLifecycleOwner){
+            val listRecyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewList)
+            listRecyclerView.adapter = ListCardAdapter(viewModel.data.value ?: emptyList())
+
+        }
+
         return view
+
     }
 
 }

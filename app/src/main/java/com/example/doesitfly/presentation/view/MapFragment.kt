@@ -1,4 +1,4 @@
-package com.example.doesitfly
+package com.example.doesitfly.presentation.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

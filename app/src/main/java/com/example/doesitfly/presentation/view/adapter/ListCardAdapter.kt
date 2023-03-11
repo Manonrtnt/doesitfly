@@ -1,10 +1,10 @@
-package com.example.doesitfly.adapter
+package com.example.doesitfly.presentation.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doesitfly.databinding.ListCardDetailBinding
-import com.example.doesitfly.model.FlyingSiteBean
+import com.example.doesitfly.domain.FlyingSiteBean
 
 class ListCardAdapter(
     private var flyingSiteList: List<FlyingSiteBean?>?
