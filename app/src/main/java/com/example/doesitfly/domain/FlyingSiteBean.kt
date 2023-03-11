@@ -1,4 +1,4 @@
-package com.example.doesitfly.model
+package com.example.doesitfly.domain
 
 data class FlyingSiteBean(
     val acces: String,

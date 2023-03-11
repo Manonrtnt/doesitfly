@@ -1,12 +1,10 @@
-package com.example.doesitfly
+package com.example.doesitfly.presentation.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.example.doesitfly.R
 import com.example.doesitfly.databinding.ActivityMainBinding
-import com.example.doesitfly.databinding.FragmentListBinding
-import com.example.doesitfly.viewModel.ListFlyingSiteViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

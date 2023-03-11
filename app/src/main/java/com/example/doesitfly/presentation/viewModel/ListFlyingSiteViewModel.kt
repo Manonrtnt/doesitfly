@@ -1,22 +1,23 @@
-package com.example.doesitfly.viewModel
+package com.example.doesitfly.presentation.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.doesitfly.api.RequestUtil
-import com.example.doesitfly.model.FlyingSiteBean
+import com.example.doesitfly.data.repository.RemoteRepository
+import com.example.doesitfly.domain.FlyingSiteBean
 
 class ListFlyingSiteViewModel : ViewModel() {
-    val data: MutableLiveData<List<FlyingSiteBean>> = MutableLiveData()
+    val data: MutableLiveData<List<FlyingSiteBean>?> = MutableLiveData()
     var errorMessage = MutableLiveData("ERROR")
 
     /** load flying site data : FlyingSiteBean from API */
+
     fun loadData(){
         // Reset data
         data.postValue(null)
         errorMessage.postValue(null)
 
         try {
-            data.postValue(RequestUtil.loadFlyingSite())
+            data.postValue(RemoteRepository.getFlyingSitesFromApi())
 
         } catch (e : Exception) {
             e.printStackTrace()
@@ -24,7 +25,6 @@ class ListFlyingSiteViewModel : ViewModel() {
         }
     }
 
-//    fun loadData() {
 //        viewModelScope.launch {
 //            try {
 //                val sites = withContext(Dispatchers.IO) {

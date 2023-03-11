@@ -1,7 +1,7 @@
 package com.example.doesitfly.api
 
 import android.util.Log
-import com.example.doesitfly.model.FlyingSiteBean
+import com.example.doesitfly.domain.FlyingSiteBean
 import com.example.doesitfly.utils.URL_API_FLYING_SITE
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
