@@ -12,14 +12,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
-    private val viewModel by lazy { ViewModelProvider(this)[ListFlyingSiteViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel.loadData()
-
-        viewModel.data.value
 
         val navigation = findViewById<BottomNavigationView>(R.id.navigationBar)
         navigation.setOnNavigationItemSelectedListener {

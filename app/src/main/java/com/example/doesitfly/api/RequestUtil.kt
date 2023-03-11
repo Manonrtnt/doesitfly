@@ -26,20 +26,6 @@ object RequestUtil {
         return flyingSite.asList()
     }
 
-    fun loadOneFlyingSite() : FlyingSiteBean {
-        //Contrôle de donnée
-        //construire requete
-        //Faire la requete
-        val json = sendGet("https://balisemeteo.com/balise_json.php?idBalise=83")
-        Log.d("Tag", "data: $json")
-        //Parse le résultat
-        var flyingSite = gson.fromJson(json, FlyingSiteBean::class.java)
-        //Contrôle
-        //Extraction
-        Log.d("TEST", flyingSite.toString())
-        return flyingSite
-    }
-
     private fun sendGet(url: String): String? {
         var result: String? = null
 
