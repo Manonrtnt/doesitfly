@@ -1,0 +1,18 @@
+<resources>
+
+    <string name="app_name">Doesitfly</string>
+
+    <!-- Tabmenu -->
+    <string name="tab_item_map">MAP</string>
+    <string name="tab_item_list">LIST</string>
+
+    <!-- Card -->
+
+    <!-- Card details -->
+    <string name="card_detail_site_name">Nom du site</string>
+    <string name="card_detail_city">Ville + code postal</string>
+    <string name="card_detail_wind">Favorable winds</string>
+
+    <!-- Flying site page -->
+
+</resources>
