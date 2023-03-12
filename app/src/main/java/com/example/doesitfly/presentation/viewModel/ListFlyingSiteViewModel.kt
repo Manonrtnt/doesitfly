@@ -10,6 +10,7 @@ class ListFlyingSiteViewModel : ViewModel() {
     // Init variable
     var data: MutableLiveData<List<FlyingSiteBean>?> = MutableLiveData()
     var filteredData = MutableLiveData<List<FlyingSiteBean>>()
+    var noDataMessage = MutableLiveData("")
     var errorMessage = MutableLiveData("")
     var runInProgress = MutableLiveData(false)
 
@@ -20,7 +21,7 @@ class ListFlyingSiteViewModel : ViewModel() {
     fun loadData(){
         // Reset data
         data.postValue(null)
-        errorMessage.postValue(null)
+        errorMessage.postValue("")
         runInProgress.postValue(true)
 
         try {
@@ -46,7 +47,15 @@ class ListFlyingSiteViewModel : ViewModel() {
         val originalList = data.value ?: listOf()
         val filteredList = originalList.filter { it.nom.contains(searchConstraint, true) }
 
+
         // Update the filteredData with the filteredList
         filteredData.postValue(filteredList)
+
+        // Update the noDataMessage based on the filteredList size
+        if (filteredList.isEmpty()) {
+            noDataMessage.postValue("No results found for '$searchConstraint'")
+        } else {
+            noDataMessage.postValue("")
+        }
     }
 }

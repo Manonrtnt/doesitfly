@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -63,6 +64,34 @@ class ListFragment : Fragment() {
                 return false
             }
         })
+
+        val messageInformation = view.findViewById<TextView>(R.id.textViewMessageInformation)
+        val listRecyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewList)
+
+        // Error message
+        viewModel.errorMessage.observe(viewLifecycleOwner){ errorMessage ->
+            if (errorMessage != "") {
+                messageInformation.text = errorMessage
+                messageInformation.visibility = View.VISIBLE
+                listRecyclerView.visibility = View.GONE
+            } else {
+                messageInformation.visibility = View.GONE
+                listRecyclerView.visibility = View.VISIBLE
+            }
+        }
+
+        // No data for search constraint
+        viewModel.noDataMessage.observe(viewLifecycleOwner){ noDataMessage ->
+            if (noDataMessage != ""){
+                messageInformation.text = noDataMessage
+                messageInformation.visibility = View.VISIBLE
+                listRecyclerView.visibility = View.GONE
+            } else {
+                messageInformation.visibility = View.GONE
+                listRecyclerView.visibility = View.VISIBLE
+            }
+        }
+
         return view
     }
 }
