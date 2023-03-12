@@ -15,29 +15,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/top_bar_menu"/>
 
-    <TextView
-        android:id="@+id/app_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text= "@string/app_name"
-        android:layout_marginStart="@dimen/dimensions_4"
-        android:layout_marginTop="@dimen/dimensions_4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navigationBar" />
-
-    <TextView
-        android:id="@+id/map_title"
-        style="@style/HeaderText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tab_item_map"
-        app:layout_constraintStart_toStartOf="@+id/app_title"
-        app:layout_constraintTop_toBottomOf="@+id/app_title" />
-
     <FrameLayout
         android:id="@+id/frameLayout_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="135dp"/>
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dimensions_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigationBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

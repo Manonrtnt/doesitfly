@@ -10,10 +10,12 @@
     <string name="card_detail_site_name">Nom du site</string>
     <string name="card_detail_city">Ville + code postal</string>
     <string name="card_detail_wind">Favorable winds</string>
+    <string name="card_detail_more_btn">More</string>
+
 
     <!-- Flying site page -->
 
     <!-- Map fragment -->
-    <string name="workinprogresse">workInProgresse</string>
+    <string name="map_work_in_progress">Work in Progress</string>
 
 </resources>

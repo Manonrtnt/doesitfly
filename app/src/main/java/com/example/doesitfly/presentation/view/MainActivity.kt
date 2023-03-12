@@ -9,34 +9,34 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater)}
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Charge le fragment MapFragment() par défaut
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frameLayout_fragment, MapFragment())
+                .commit()
+        }
+
         val navigation = findViewById<BottomNavigationView>(R.id.navigationBar)
-        navigation.setOnNavigationItemSelectedListener {
-            when(it.itemId){
+        navigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
                 R.id.tab_item_list -> {
-                    loadFragment(ListFragment())
-                    return@setOnNavigationItemSelectedListener true
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout_fragment, ListFragment())
+                        .commit()
+                    true
                 }
                 R.id.tab_item_map -> {
-                    loadFragment(MapFragment())
-                    return@setOnNavigationItemSelectedListener true
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout_fragment, MapFragment())
+                        .commit()
+                    true
                 }
                 else -> false
             }
         }
-    }
-
-    private fun loadFragment(fragment : Fragment){
-        // injecté fragment container
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frameLayout_fragment, fragment)
-        // retirer backStack
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 }

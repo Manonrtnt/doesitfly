@@ -6,8 +6,11 @@ import com.example.doesitfly.data.repository.RemoteRepository
 import com.example.doesitfly.domain.FlyingSiteBean
 
 class ListFlyingSiteViewModel : ViewModel() {
-    val data: MutableLiveData<List<FlyingSiteBean>?> = MutableLiveData()
-    var errorMessage = MutableLiveData("ERROR")
+    var data: MutableLiveData<List<FlyingSiteBean>?> = MutableLiveData()
+    var filteredData = MutableLiveData<List<FlyingSiteBean>>()
+    var errorMessage = MutableLiveData("")
+    var runInProgress = MutableLiveData(false)
+
 
     /** load flying site data : FlyingSiteBean from API */
 
@@ -15,6 +18,7 @@ class ListFlyingSiteViewModel : ViewModel() {
         // Reset data
         data.postValue(null)
         errorMessage.postValue(null)
+        runInProgress.postValue(true)
 
         try {
             data.postValue(RemoteRepository.getFlyingSitesFromApi())
@@ -23,24 +27,20 @@ class ListFlyingSiteViewModel : ViewModel() {
             e.printStackTrace()
             errorMessage.postValue("Connection error")
         }
+
+        runInProgress.postValue(false)
     }
 
-//        viewModelScope.launch {
-//            try {
-//                val sites = withContext(Dispatchers.IO) {
-//                    // Effectuez votre requête réseau ici
-//                    // Cette ligne de code doit être exécutée sur un thread différent du thread principal
-//                    loadFlyingSite()
-//                }
-//
-//                // Mettez à jour les données de l'objet MutableLiveData
-//                data.value = sites
-//                errorMessage.value = null
-//            } catch (e: Exception) {
-//                // Si une erreur se produit, mettez à jour l'objet MutableLiveData d'erreur
-//                errorMessage.value = e.message
-//            }
-//        }
-//    }
+    fun sortDataWithSearchResult(
+        data: MutableLiveData<List<FlyingSiteBean>?>,
+        searchConstraint: String
+    ): MutableLiveData<List<FlyingSiteBean>> {
 
+        val originalList = data.value ?: listOf()
+        val filteredList = originalList.filter { it.nom.contains(searchConstraint, true) }
+
+        filteredData.value = filteredList
+
+        return filteredData
+    }
 }

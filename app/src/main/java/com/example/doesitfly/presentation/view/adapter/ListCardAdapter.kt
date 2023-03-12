@@ -1,5 +1,6 @@
 package com.example.doesitfly.presentation.view.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,17 +26,18 @@ class ListCardAdapter(
         return flyingSiteList?.size ?: 0
     }
 
-    fun updateData(newData: List<FlyingSiteBean?>?) {
-        flyingSiteList = newData
-        notifyDataSetChanged()
-    }
+//    fun updateData(newData: List<FlyingSiteBean?>?) {
+//        flyingSiteList = newData
+//        notifyDataSetChanged()
+//    }
 
     inner class ViewHolder(private val binding: ListCardDetailBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(flyingSite: FlyingSiteBean?) {
             // Bind data to view
             binding.textViewSiteName.text = flyingSite?.nom ?: ""
-            binding.textViewCity.text = (flyingSite?.cp + "" + flyingSite?.ville)
-            binding.textViewWind.text = flyingSite?.vent_favo ?: ""
+            binding.textViewCity.text = ( flyingSite?.ville + " " + flyingSite?.cp)
+            binding.textViewWind.text = ("Vent favorable : " + flyingSite?.vent_favo)
         }
     }
 }
