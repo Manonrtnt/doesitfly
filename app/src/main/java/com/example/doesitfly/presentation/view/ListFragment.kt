@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.doesitfly.R
-import com.example.doesitfly.databinding.FragmentListBinding
 import com.example.doesitfly.presentation.view.adapter.ListCardAdapter
 import com.example.doesitfly.presentation.viewModel.ListFlyingSiteViewModel
 import kotlin.concurrent.thread
@@ -28,19 +27,23 @@ class ListFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
+        // Load data from ViewModel
         thread {
             viewModel.loadData()
         }
 
-        viewModel.data.observe(viewLifecycleOwner) {
+        // Set up RecyclerView adapter with the data from ViewModel
+        viewModel.data.observe(viewLifecycleOwner) { data ->
             val listRecyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewList)
-            listRecyclerView.adapter = ListCardAdapter(viewModel.data.value ?: emptyList())
-
-        }
-        viewModel.runInProgress.observe(viewLifecycleOwner) {
-            view.findViewById<ProgressBar>(R.id.progressBar).isVisible = it
+            listRecyclerView.adapter = ListCardAdapter(data ?: emptyList())
         }
 
+        // Show progress bar if data is being loaded
+        viewModel.runInProgress.observe(viewLifecycleOwner) { inProgress ->
+            view.findViewById<ProgressBar>(R.id.progressBar).isVisible = inProgress
+        }
+
+        // Set up search functionality with the data from ViewModel
         val searchView: SearchView = view.findViewById(R.id.searchViewList)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -48,19 +51,18 @@ class ListFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Logique à exécuter lors du changement de texte dans la recherche
+                // Get the search query text and sort the data accordingly
                 val searchQuery = newText ?: ""
-
                 viewModel.sortDataWithSearchResult(viewModel.data, searchQuery)
 
-                viewModel.filteredData.observe(viewLifecycleOwner) {
+                // Update the RecyclerView adapter with filtered data
+                viewModel.filteredData.observe(viewLifecycleOwner) { filteredData ->
                     val listRecyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewList)
-                    listRecyclerView.adapter = ListCardAdapter(viewModel.filteredData.value ?: emptyList())
+                    listRecyclerView.adapter = ListCardAdapter(filteredData ?: emptyList())
                 }
                 return false
             }
         })
-
         return view
     }
 }
